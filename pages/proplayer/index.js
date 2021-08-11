@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import Link from 'next/link'
 import { getProplayer } from '../../Redux/Action/playersAction'
 
 const proplayer = ({proplayers, getProplayer}) => {
@@ -42,10 +43,12 @@ const proplayer = ({proplayers, getProplayer}) => {
                         </div>
                     : null}
                     {proplayers.map(pl => (
-                        <li key={pl.account_id} className="player-list">
-                            <div className="px-3"><img style={{width: '50px', borderRadius:'50px'}} src={pl.avatarfull}/></div>
-                            <div><p>{pl.name}</p></div>
+                            <Link href={`/proplayer/playerInfo/${pl.account_id}`}>
+                        <li className="player-list">
+                                <div className="px-3"><img style={{width: '50px', borderRadius:'50px'}} src={pl.avatarfull}/></div>
+                                <div><p>{pl.name}</p></div>
                         </li>
+                            </Link>
                     ))}
                 </ul>
             </div>

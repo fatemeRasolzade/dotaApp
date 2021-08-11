@@ -3,6 +3,11 @@
   src: url(../fonts/IRANYekanRegularFaNum.ttf);
 }
 
+@font-face {
+  font-family: "Rancho";
+  src: url(https://fonts.googleapis.com/css2?family=Crimson+Pro);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -17,6 +22,10 @@ body {
   background: #1b1b1b;
   color: #ffffff;
   overflow-x: hidden;
+}
+
+h3 {
+  font-family: "Rancho",sans-serif;
 }
 
 .main-banner {
@@ -86,5 +95,6 @@ a {
   -webkit-box-align: baseline;
       -ms-flex-align: baseline;
           align-items: baseline;
+  cursor: pointer;
 }
 /*# sourceMappingURL=Style.css.map */
