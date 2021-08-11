@@ -1,0 +1,72 @@
+@font-face {
+    font-family: IRANYekanRegularFaNum;
+    src: url(../fonts/IRANYekanRegularFaNum.ttf);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+html{
+    font-size: 15px;
+}
+body{
+    font-family: IRANYekanRegularFaNum;
+    background: #1b1b1b;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+.main-banner{
+    width: 100vw;
+    height: 100vh;
+    background:-webkit-linear-gradient(right , rgba(0,0,0,.5), rgba(0,0,0,.1)), url('../img/background.jpg') no-repeat center center / cover;
+}
+.index-bg{
+    z-index: -1;
+    top: 0;
+    right: 0;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    opacity: .5;
+    // background: -webkit-linear-gradient(right , rgba(0,0,0,.5), rgba(0,0,0,.1)), url('../img/proplayer.jpg') no-repeat center center / cover;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+.main-navbar{
+    top: 0;
+    left: 0;
+    text-align: right;
+    font-size: 1.3rem;
+    height: 100vh;
+    display: flex;
+    padding: 5rem 0;
+}
+.main-btn{
+    width: 20rem;
+    background: rgba(250,250,250,0.5);
+    border-radius: 50px 0  0 50px;
+    padding: .7rem 5rem;
+    display: inline-block;
+    text-align: center;
+    margin: 1rem 0;
+    color: #1b1b1b;
+}
+.main-btn:hover{
+    color:#42617e;
+}
+.player-list{
+    width: 25rem;
+    background: rgba(250,250,250,0.1);
+    border-radius: 50px 0;
+    padding: .8rem 2rem;
+    margin: 1rem 0;
+    font-size: 1.4rem;
+    display: flex;
+    justify-content: start;
+    align-items: baseline;
+}
