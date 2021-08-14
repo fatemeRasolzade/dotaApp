@@ -31,13 +31,13 @@ class MyApp extends App {
         }; 
     }
 
-    static async getInitialProps({ Component, ctx }) {
-        const appProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
-        return {appProps : appProps}
-    }
+    // static async getInitialProps({ Component, ctx }) {
+    //     const appProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
+    //     return {appProps : appProps}
+    // }
 
     render() {
-        const {Component, appProps } = this.props;
+        const {Component, pageProps } = this.props;
         return (
             <div>
               <Head>
@@ -49,7 +49,7 @@ class MyApp extends App {
               <ThemeProvider theme={Mytheme}>
                 <StylesProvider jss={jss}>
                   {this.state.loading===true ? <Loading /> : <></>}
-                  <Component {...appProps} />
+                  <Component {...pageProps} />
                 </StylesProvider>
               </ThemeProvider>
           </div>
