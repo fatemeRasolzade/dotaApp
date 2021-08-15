@@ -17,14 +17,19 @@ const Navbar = () => {
                 </li> */}
                 <li>
                     <Link href="/proplayer">
-                    <a className="main-btn">بهترین بازیکنان</a>
+                    <a className="main-btn">proPlayer</a>
                     </Link>
                 </li>
                 <li>
                     <Link href="/promatch">
-                    <a className="main-btn">بهترین بازی ها</a>
+                    <a className="main-btn">proMatch</a>
                     </Link>
                 </li>
+                <li>
+                    <Link href="/heros">
+                    <a className="main-btn">Heros</a>
+                    </Link>
+                </li> 
             </ul>
         </div>
     )

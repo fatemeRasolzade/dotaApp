@@ -1,21 +1,19 @@
 @font-face {
-    font-family: IRANYekanRegularFaNum;
-    src: url(../fonts/IRANYekanRegularFaNum.ttf);
-}
-@font-face {
     font-family: "Rancho";
     src: url(https://fonts.googleapis.com/css2?family=Crimson+Pro);
 }
-
 *{
     margin: 0;
     padding: 0;
+}
+p{
+    margin: 0;
 }
 html{
     font-size: 15px;
 }
 body{
-    font-family: IRANYekanRegularFaNum;
+    font-family: Rancho,sans-serif;
     background: #1b1b1b;
     color: #ffffff;
     overflow-x: hidden;
@@ -77,4 +75,25 @@ a{
     justify-content: start;
     align-items: baseline;
     cursor: pointer;
+}
+.prosplayer-list{
+    display: flex;
+    transition: all .2s ease-in-out;
+    width: 20rem;
+    margin: .2rem 0;
+    padding: .5rem 0;
+    align-items: center;
+}
+.prosplayer-list:hover{
+    background: rgba(250,250,250,0.1);
+    cursor: pointer;
+    padding: .3rem 2rem;
+    border-radius: 50px 0;
+}
+.hover-muted{
+    color: #ffffff;
+    transition: all .3s ease-in-out;
+}
+.hover-muted:hover{
+    color: rgba(250,250,250,0.6);
 }

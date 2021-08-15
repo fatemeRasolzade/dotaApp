@@ -2,13 +2,12 @@ import React, {useEffect, useState} from 'react'
 import { useRouter } from 'next/dist/client/router'
 import { connect } from 'react-redux';
 import { getplayerInfo } from '../../../Redux/Action/playersAction';
+import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
 
 export async function getStaticProps({ params }){
-    const getWlPlayer = await fetch(`https://api.opendota.com/api/players/${params.pname}/wl`)
-    const wlPlayer = await getWlPlayer.json()
     const getProsPlayer = await fetch(`https://api.opendota.com/api/players/${params.pname}/pros`)
     const prosPlayer = await getProsPlayer.json()
-    if(!wlPlayer) {
+    if(!prosPlayer) {
         return {
             redirect: {
                 destination: '/',
@@ -19,7 +18,6 @@ export async function getStaticProps({ params }){
     return {
         props: {
             prosPlayer: prosPlayer.slice(0,20),
-            wlPlayer: wlPlayer,
         },
         revalidate:10
     }
@@ -88,31 +86,45 @@ const playerDetails = ({playerInfo, getplayerInfo, wlPlayer, prosPlayer}) => {
         <div>
             <img className="index-bg" src="/img/proplayerBg.jpg"/>
             <div className='container'>
-                <div className="pt-5">
-                    {/* id {router.query.pname}  */}
-                    <div className="d-flex pt-5">
-                        <div>
-                            <img style={{borderRadius: '100px'}} src={playerInfo.avatarfull}/>
+                <div className="row pt-5">
+                    <div className="col-5">
+                        <div className="d-flex pt-5">
+                            <div>
+                                <img style={{borderRadius: '100px'}} src={playerInfo.avatarfull}/>
+                            </div>
+                            <div className='d-flex flex-column justify-content-center px-4'>
+                                <p className='fs-1'>{playerInfo.name}</p>
+                                <p className='fs-3'>{playerInfo.personaname}</p>
+                            </div>
                         </div>
-                        <div className='d-flex flex-column justify-content-center px-4'>
-                            <p style={{fontSize: '2.5rem', margin: '0'}}>{playerInfo.name}</p>
-                            <p style={{fontSize: '1.5rem'}}>{playerInfo.personaname}</p>
+                        <div className="pt-4">
+                            <p className='pt-1 fs-5'>player game: {prosPlayer[0].games}</p>
+                            <p className='pt-1 fs-5'>player win: {prosPlayer[0].win}</p>
+                            <p className='pt-1 fs-5'>player lose: {prosPlayer[0].games - prosPlayer[0].win}</p>
+                            <p className='pt-1 fs-5'>team name: 
+                                <a href="*" className="hover-muted" target="_blank">
+                                    {prosPlayer[0].team_name}
+                                </a>
+                            </p>
+                            <p className='pt-1 fs-5'>last login: {prosPlayer[0].last_login}</p>
+                            <p className='pt-1 fs-5'>
+                                <a href={playerInfo.profileurl} className="hover-muted" target="_blank">
+                                    <TrendingFlatIcon style={{marginRight: '.3rem'}}/>
+                                    steam profile
+                                </a>
+                            </p>
                         </div>
                     </div>
-                    <div className="pt-4">
-                        <p style={{fontSize: '1.2rem', marginBottom: '0'}}>player win: {wlPlayer.win}</p>
-                        <p style={{fontSize: '1.2rem'}}>player lose: {wlPlayer.lose}</p>
-                        <p style={{fontSize: '1.5rem'}}>pros player:</p>
-                        {prosPlayer.map(team => (
-                            <div key={team.account_id} className="d-flex align-items-baseline" onClick={() => OnClickPlayer(team.account_id)}>
-                                <div>
-                                    <img style={{borderRadius: '50px', marginRight: '.6rem'}} src={team.avatar}/>
+                    <div className="col-4">
+                        <p className='pt-1 fs-4' >pros player:</p>
+                        <div>
+                            {prosPlayer.map(pros => (
+                                <div key={pros.account_id} className="prosplayer-list" onClick={() => OnClickPlayer(pros.account_id)}>
+                                    <img style={{borderRadius: '50px', marginRight: '.6rem'}} src={pros.avatar}/>
+                                    <p style={{fontSize: '1.2rem'}}>{pros.name}</p>
                                 </div>
-                                <div>
-                                    <p style={{fontSize: '1.2rem'}}>{team.name}</p>
-                                </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -125,3 +137,6 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps,{getplayerInfo})(playerDetails)
+
+
+
