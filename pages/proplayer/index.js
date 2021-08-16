@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
 import Link from 'next/link'
-import { getProplayer } from '../../Redux/Action/playersAction'
 import LoadingSpinners from '../../components/Utils/LoadingSpinners'
 
-const proplayer = ({proplayers, getProplayer}) => {
-
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        initProplayer()
-    }, [])
-
-    const initProplayer = async() => {
-        setLoading(true)
-        await getProplayer()
-        setLoading(false)
+export async function getServerSideProps() {
+    const getProplayer = await fetch(`https://api.opendota.com/api/proPlayers`)
+    const proPlayers = await getProplayer.json()
+    if(! proPlayers){
+        <LoadingSpinners/>
     }
+    return { props: { proPlayers: proPlayers.slice(0,20) } }
+  }
+
+const proplayer = ({proPlayers}) => {
 
     return (
         <div>
@@ -24,8 +19,7 @@ const proplayer = ({proplayers, getProplayer}) => {
             <div className='container'>
                 <h3 className="pt-5">Proplayers</h3>
                 <ul className="py-3">
-                    {loading ? <LoadingSpinners/> : null}
-                    {proplayers.map(pl => (
+                    {proPlayers.map(pl => (
                         <Link href={`/proplayer/playerInfo/${pl.account_id}`}>
                             <li className="player-list">
                                 <div className="px-3"><img style={{width: '50px', borderRadius:'50px'}} src={pl.avatarfull}/></div>
@@ -38,8 +32,5 @@ const proplayer = ({proplayers, getProplayer}) => {
         </div>
     )
 }
-const mapStateToProps = state => ({
-    proplayers: state.players.proplayer
-})
 
-export default connect(mapStateToProps,{getProplayer})(proplayer)
+export default proplayer

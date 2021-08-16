@@ -18,7 +18,7 @@ const Heros = ({getHeros, heros}) => {
 
     return (
         <div>
-            <img className="index-bg" src="/img/heros.jpg"/>
+            <img className="index-bg" src="/img/herosBg.jpg"/>
             <div className='container'>
                 <h3 className="pt-5">Heros</h3>
                 <ul className="py-3">
