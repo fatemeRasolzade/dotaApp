@@ -1,15 +1,15 @@
 import * as t from '../type'
 
 const initialState = {
-    heros: []
+    teams: []
 }
 
-export const herosReducer = (state=initialState, action) => {
+export const teamsReducer = (state=initialState, action) => {
     switch (action.type) {
-        case t.GET_HEROS:
+        case t.GET_TEAMS:
             return{
                 ...state,
-                heros: action.payload
+                teams: action.payload
             }
         default:
             return state;

@@ -3,11 +3,13 @@ import { playersReducer } from "./playersReducer";
 import { HYDRATE } from "next-redux-wrapper";
 import { matchsReducer } from "./matchsReducer";
 import { herosReducer } from "./herosReducer";
+import { teamsReducer } from "./teamsReducer";
 
 export const reducers = combineReducers({
     players: playersReducer,
     matchs: matchsReducer,
-    heros:  herosReducer
+    heros: herosReducer,
+    teams: teamsReducer
 })
 
 export const reducer = (state, action) => {

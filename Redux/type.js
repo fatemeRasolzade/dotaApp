@@ -7,3 +7,6 @@ export const GET_PROMATCH = 'GET_PROMATCH'
 
 //hero
 export const GET_HEROS = 'GET_HEROS'
+
+//teams
+export const GET_TEAMS = 'GET_TEAMS'

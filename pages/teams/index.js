@@ -1,26 +1,27 @@
 import React,{ useEffect, useState} from 'react'
 import { connect } from 'react-redux'
-import { getHeros } from '../../Redux/Action/herosAction'
+import { getTeams } from '../../Redux/Action/teamsAction'
+import Link from 'next/link'
 
-const Heros = ({getHeros, heros}) => {
+const Teams = ({getTeams, teams}) => {
 
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        initHeros()
+        initTeams()
     }, [])
 
-    const initHeros = async () => {
+    const initTeams = async () => {
         setLoading(true)
-        await getHeros()
+        await getTeams()
         setLoading(false)
     }
 
     return (
         <div>
-            <img className="index-bg" src="/img/heros.jpg"/>
+            <img className="index-bg" src="/img/teamsBg.jpg"/>
             <div className='container'>
-                <h3 className="pt-5">Heros</h3>
+                <h3 className="pt-5">Teams</h3>
                 <ul className="py-3">
                     {loading ?
                         <div className="py-5 d-flex justify-content-center" style={{width: '25rem'}}>
@@ -41,10 +42,13 @@ const Heros = ({getHeros, heros}) => {
                             </div>
                         </div>
                     : null}
-                    {heros.map(h => (
-                        <li key={h.id} className="player-list">
-                            <div><p>{h.localized_name}</p></div>
-                        </li>
+                    {teams.map(t => (
+                        <Link href={`/teams/teamInfo/${t.team_id}`}>
+                            <li key={t.team_id} className="player-list">
+                                <div className="px-3"><img style={{width: '50px', height: '40px'}} src={t.logo_url}/></div>
+                                <div><p>{t.name}</p></div>
+                            </li>
+                        </Link>
                     ))}
                 </ul>
             </div>
@@ -53,7 +57,7 @@ const Heros = ({getHeros, heros}) => {
 }
 
 const mapStateToProps = state => ({
-    heros: state.heros.heros
+    teams: state.teams.teams
 })
 
-export default connect(mapStateToProps,{getHeros})(Heros)
+export default  connect(mapStateToProps,{getTeams})(Teams)

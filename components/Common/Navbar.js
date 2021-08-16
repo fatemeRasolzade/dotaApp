@@ -30,6 +30,11 @@ const Navbar = () => {
                     <a className="main-btn">Heros</a>
                     </Link>
                 </li> 
+                <li>
+                    <Link href="/teams">
+                    <a className="main-btn">Teams</a>
+                    </Link>
+                </li> 
             </ul>
         </div>
     )

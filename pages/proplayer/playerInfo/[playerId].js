@@ -3,9 +3,10 @@ import { useRouter } from 'next/dist/client/router'
 import { connect } from 'react-redux';
 import { getplayerInfo } from '../../../Redux/Action/playersAction';
 import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
+import LoadingSpinners from '../../../components/Utils/LoadingSpinners';
 
 export async function getStaticProps({ params }){
-    const getProsPlayer = await fetch(`https://api.opendota.com/api/players/${params.pname}/pros`)
+    const getProsPlayer = await fetch(`https://api.opendota.com/api/players/${params.playerId}/pros`)
     const prosPlayer = await getProsPlayer.json()
     if(!prosPlayer) {
         return {
@@ -27,28 +28,28 @@ export async function getStaticPaths() {
   
     const posts = [
         {
-            pname: 88470
+            playerId: 88470
         },
         {
-            pname: 639740
+            playerId: 639740
         },
         {
-            pname: 1296625
+            playerId: 1296625
         },
         {
-            pname: 1400303
+            playerId: 1400303
         },
         {
-            pname: 1470116
+            playerId: 1470116
         },
     ]
     const paths = posts.map((post) => ({
-      params: { pname: post.pname.toString() },
+      params: { playerId: post.playerId.toString() },
     }))
     return { paths, fallback: true }
 }
 
-const playerDetails = ({playerInfo, getplayerInfo, wlPlayer, prosPlayer}) => {
+const PlayerDetails = ({playerInfo, getplayerInfo, wlPlayer, prosPlayer}) => {
 
     const router = useRouter();
 
@@ -57,30 +58,12 @@ const playerDetails = ({playerInfo, getplayerInfo, wlPlayer, prosPlayer}) => {
     }
 
     if (router.isFallback) {
-        return (
-            <div className="py-5 d-flex justify-content-center" style={{width: '25rem'}}>
-                <div className="px-2">
-                    <div className="spinner-grow" role="status">
-                        <span className="sr-only"></span>
-                    </div>
-                </div>
-                <div className="px-2">
-                    <div className="spinner-grow" role="status">
-                        <span className="sr-only"></span>
-                    </div>
-                </div>
-                <div className="px-2">
-                    <div className="spinner-grow" role="status">
-                        <span className="sr-only"></span>
-                    </div>
-                </div>
-            </div>
-        )
+        return <LoadingSpinners/>
       }
 
     useEffect(() => {
-        getplayerInfo(router.query.pname)
-    }, [router.query.pname])
+        getplayerInfo(router.query.playerId)
+    }, [router.query.playerId])
     
     return (
         <div>
@@ -102,7 +85,7 @@ const playerDetails = ({playerInfo, getplayerInfo, wlPlayer, prosPlayer}) => {
                             <p className='pt-1 fs-5'>player win: {prosPlayer[0].win}</p>
                             <p className='pt-1 fs-5'>player lose: {prosPlayer[0].games - prosPlayer[0].win}</p>
                             <p className='pt-1 fs-5'>team name: 
-                                <a href="*" className="hover-muted" target="_blank">
+                                <a href={`/teams/teamInfo/${prosPlayer[0].team_id}`} className="hover-muted">
                                     {prosPlayer[0].team_name}
                                 </a>
                             </p>
@@ -136,7 +119,7 @@ const mapStateToProps = state => ({
     playerInfo: state.players.playerInfo
 })
 
-export default connect(mapStateToProps,{getplayerInfo})(playerDetails)
+export default connect(mapStateToProps,{getplayerInfo})(PlayerDetails)
 
 
 
